@@ -92,20 +92,20 @@ const getSensorData = async (id:string) => {
             },
             withCredentials:true,
         });
-        const res:SensorData = response.data;
+        const res:SensorData[] = response.data;
         console.log(res);
         return res;
     } catch(e) {
         console.log(e);
-        const fail:SensorData = {
+        const fail:SensorData[] = [{
             id: 0,
             sensorData: 'null',
             sensorDate: 'null',
             sensorName: 'null',
             farmNum: "정보를 불러오는데 실패했습니다. 다시 시도해주세요.",
             sensorUser:'null',
-        }
-        return ;
+        }]
+        return fail;
     }
 }
 export { loginCheck,registerSend, checkDuplicate, resUserInfo, getSensorData }
