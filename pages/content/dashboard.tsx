@@ -1,10 +1,8 @@
 import React, { Component, useEffect, useState } from "react";
-import Sidebar from "@/components/layout/sidebar";
-import { AppProps } from "next/app";
 import { getSensorData } from "@/axiosAPI/axiosFunction";
 import { SensorData } from "@/interfaces/interface";
 const about = () => {
-    const [sensorData, setSensorData] = useState<SensorData>();
+    const [sensorData, setSensorData] = useState<SensorData[]>([]);
     useEffect(() => {
         const getData = async () => {
             const res = await getSensorData("xptmxmfhqhso");
@@ -18,9 +16,46 @@ const about = () => {
     // </Sidebar>
     // );
     return (
-        <div>
-            dafda
-        </div>
+        <table className="table-fixed">
+            <thead>
+                <tr>
+                    <th>
+                        sensor
+                    </th>
+                    <th>
+                        farm name
+                    </th>
+                    <th>
+                        data
+                    </th>
+                    <th>
+                        regist date
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    sensorData.map(function (res){
+                        return(
+                            <tr>
+                                <td>
+                                {res.sensorName}
+                                </td>
+                                <td>
+                                {res.farmNum}
+                                </td>
+                                <td>
+                                {res.sensorData}
+                                </td>
+                                <td>
+                                {res.sensorDate}
+                                </td>
+                            </tr>
+                        );
+                    })
+                }
+            </tbody>
+        </table>
     );
 }
 
