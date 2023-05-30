@@ -6,7 +6,7 @@ type Props = {
     onMenuButtonClick(): void;
 };
 
-const Sidebar = (props : PropsWithChildren) => {
+const Sidebar = (props : {children: React.ReactNode}) => {
 
     const router = useRouter();
     const menuContent = [
@@ -16,12 +16,16 @@ const Sidebar = (props : PropsWithChildren) => {
         },
         {
             href: "/farmVideo",
-            title: "farmVideo"
+            title: "CCTV"
+        },
+        {
+            href: "/control",
+            title: "control"
         }
     ]
 
     return (
-        <div className="grid min-h-screen grid-rows-header bg-zinc-300">
+        <div className="grid min-h-screen grid-rows-header bg-red-300">
             {/* <div>
                 NavBar
             </div> */}

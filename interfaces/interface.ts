@@ -1,12 +1,21 @@
 export interface loginType {
-    id : String;
-    pw : String;
+    id : string;
+    pw : string;
 };
 
 export interface User {
-    id:String;
-    pw:String;
-    phoneNum: String;
-    email: String | "";
-    name: String;
+    id:string;
+    pw:string;
+    phoneNum: string;
+    email: string | "";
+    name: string;
 };
+
+export interface SensorData {
+    id:number;
+    sensorName:string,
+    sensorData:string,
+    sensorDate:string,
+    farmNum:string,
+    sensorUser:string,
+}
