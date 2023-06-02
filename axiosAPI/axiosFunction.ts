@@ -108,4 +108,20 @@ const getSensorData = async (id:string) => {
         return fail;
     }
 }
-export { loginCheck,registerSend, checkDuplicate, resUserInfo, getSensorData }
+
+const modifyNewPw = async(id:string, pw:string) => {
+    try{
+        const response = await axios
+            .post(url+'user/auth/set-password', 
+            {
+                id:id,
+                pw:pw,
+            },{withCredentials:true});
+        const res:string = response.data;
+        return res;
+    } catch(e) {
+        console.log(e);
+        return '변경에 실패하였습니다. 다시시도해주세요';
+    }
+  };
+export { loginCheck,registerSend, checkDuplicate, resUserInfo, getSensorData, modifyNewPw }

@@ -1,13 +1,17 @@
 import React, { Component, useEffect, useState } from "react";
 import { getSensorData } from "@/axiosAPI/axiosFunction";
 import { SensorData } from "@/interfaces/interface";
+import { useRecoilValue } from 'recoil';
+import { inputId } from "@/store/farmData";
 const about = () => {
     const [sensorData, setSensorData] = useState<SensorData[]>([]);
+    const currentId = useRecoilValue(inputId)
     useEffect(() => {
         const getData = async () => {
             const res = await getSensorData("xptmxmfhqhso");
             setSensorData(res);
         }
+        console.log(currentId);
         getData();
     },[])
     // return (
@@ -18,7 +22,7 @@ const about = () => {
     return (
         <table className="table-fixed">
             <thead>
-                <tr>
+                <tr className=" bg-red-200">
                     <th>
                         sensor
                     </th>
