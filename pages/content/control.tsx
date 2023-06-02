@@ -1,5 +1,10 @@
-const control = () => {
+import { useEffect } from "react"
 
+const control = () => {
+    // useEffect websocket protocol
+    useEffect(() => {
+        
+    }, [])
     const watering = () => {
         // 급수 컨트롤
     }
