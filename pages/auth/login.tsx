@@ -1,14 +1,16 @@
 import React from "react"
 import { useState } from "react";
-import { loginCheck } from "@/axiosAPI/axiosFunction";
+import { getFarmList, loginCheck } from "@/axiosAPI/axiosFunction";
 import { useRouter } from "next/router";
 import {useRecoilState} from "recoil"
-import { inputId } from "@/store/farmData";
-const login = () => {
+import { inputId } from "@/store/userId";
+import { farmList } from "@/store/farmData";
+const Login = () => {
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
     const router = useRouter();
     const [currentId, setCurrentId] = useRecoilState<string>(inputId);
+    const [farmNum, setFarmNum] = useRecoilState<Array<string>>(farmList);
     const check = async () => {
         const loginInfo = {
             id: id,
@@ -16,8 +18,14 @@ const login = () => {
         }
         const res = await loginCheck(loginInfo);
         if(res) {
-            setCurrentId(id);
-            router.push("/content/dashboard");
+          setCurrentId(id);
+          const getFarmNum = await getFarmList(id);
+          if (getFarmNum.length == 0) {
+            router.push("/auth/registFarm");
+            return;
+          }
+          setFarmNum(getFarmNum);
+          router.push("/content/dashboard");
         }
         else {
             console.log("login fail");
@@ -57,9 +65,9 @@ const login = () => {
           </div>
           <div className="flex items-center justify-between">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={goRegist}>
-              Sign In
+              regist
             </button>
-            <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+            <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/auth/setPw">
               Forgot Password?
             </a>
           </div>
@@ -69,4 +77,4 @@ const login = () => {
     );
 }
 
-export default login;
+export default Login;

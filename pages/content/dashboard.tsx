@@ -2,13 +2,14 @@ import React, { Component, useEffect, useState } from "react";
 import { getSensorData } from "@/axiosAPI/axiosFunction";
 import { SensorData } from "@/interfaces/interface";
 import { useRecoilValue } from 'recoil';
-import { inputId } from "@/store/farmData";
+import { inputId } from "@/store/userId";
+import { withAuth } from "@/components/hocs/withAuth";
 const about = () => {
     const [sensorData, setSensorData] = useState<SensorData[]>([]);
     const currentId = useRecoilValue(inputId)
     useEffect(() => {
         const getData = async () => {
-            const res = await getSensorData("xptmxmfhqhso");
+            const res = await getSensorData(currentId);
             setSensorData(res);
         }
         console.log(currentId);
@@ -20,20 +21,52 @@ const about = () => {
     // </Sidebar>
     // );
     return (
-        <table className="table-fixed">
+        <div className="grid grid-cols-2 gap-4 justify-center w-auto h-auto">
+                <div className="flex felx-col m-10 shadow-sm rounded-md w-full">
+                    <table className="table-fixed border-collapse w-full mx-10">
+                        <thead>
+                            <tr className="bg-red-200 text-left">
+                                <th>팜 아이디</th>
+                                <th>열매갯수</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                sensorData.map(farm => {
+                                    return (
+                                        <tr>
+                                            <td>{farm.farmNum}</td>
+                                            <td>{farm.fruitNum}</td>
+                                        </tr>
+                                    );
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    chart
+                </div>
+        <table className="col-span-2 table-fixed border-collapse mx-20">
             <thead>
-                <tr className=" bg-red-200">
+                <tr className=" bg-red-200 text-left">
                     <th>
-                        sensor
+                        수집 날짜
                     </th>
                     <th>
-                        farm name
+                        팜 아이디
                     </th>
                     <th>
-                        data
+                        온도
                     </th>
                     <th>
-                        regist date
+                        습도
+                    </th>
+                    <th>
+                        이산화탄소
+                    </th>
+                    <th>
+                        토양습도
                     </th>
                 </tr>
             </thead>
@@ -43,16 +76,22 @@ const about = () => {
                         return(
                             <tr>
                                 <td>
-                                {res.sensorName}
+                                {res.sensorDate}
                                 </td>
                                 <td>
                                 {res.farmNum}
                                 </td>
                                 <td>
-                                {res.sensorData}
+                                {res.temperature}
                                 </td>
                                 <td>
-                                {res.sensorDate}
+                                {res.moisture}
+                                </td>
+                                <td>
+                                {res.co2}
+                                </td>
+                                <td>
+                                {res.groundMoisture}
                                 </td>
                             </tr>
                         );
@@ -60,7 +99,8 @@ const about = () => {
                 }
             </tbody>
         </table>
+        </div>
     );
 }
 
-export default about;
+export default withAuth(about);

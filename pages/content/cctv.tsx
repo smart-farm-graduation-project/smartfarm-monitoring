@@ -1,3 +1,5 @@
+import { withAuth } from "@/components/hocs/withAuth";
+
 const cctv = () => {
     return(
         <div>
@@ -6,4 +8,4 @@ const cctv = () => {
     )
 }
 
-export default cctv;
+export default withAuth(cctv);

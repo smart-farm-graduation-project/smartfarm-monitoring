@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { loginCheck, modifyNewPw } from "@/axiosAPI/axiosFunction";
 import { useRecoilValue } from "recoil";
-import { inputId } from "@/store/farmData";
+import { inputId } from "@/store/userId";
 import { loginType } from "@/interfaces/interface";
 
 const FindPW = () => {

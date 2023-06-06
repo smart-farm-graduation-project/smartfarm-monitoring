@@ -1,9 +1,9 @@
-import { atom } from "recoil";
+import { atom, RecoilEnv } from "recoil";
 import { SensorData } from "@/interfaces/interface";
 import { recoilPersist } from 'recoil-persist'
 
-const { persistAtom } = recoilPersist();
-
+// const { persistAtom } = recoilPersist();
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 // export const inputState = atom<SensorData[]>({
 //     key: 'inputState',
 //     default: undefined
@@ -22,9 +22,15 @@ const { persistAtom } = recoilPersist();
 //         }
 //     ]
 // })
+const sessionStorage = typeof window!=='undefined'?window.sessionStorage : undefined;
+const {persistAtom} = recoilPersist({
+    key:"farm-list",
+    storage:sessionStorage,
+});
 
-export const inputId = atom({
-    key: 'inputId',
-    default: '',
+export const farmList = atom({
+    key: 'farmList',
+    default: [],
     effects_UNSTABLE: [persistAtom],
+
 })

@@ -63,7 +63,7 @@ const register = () => {
             name <input onChange={onChange} name="name" value={name.toString()} />
             phone <input onChange={onChange} name="phoneNum" value={phoneNum.toString()} />
             email <input onChange={onChange} name="email" value={email.toString()} />
-            <input type="submit" onClick={regist} value="submit" />
+            <button type="button" onClick={regist}>가입</button>
         </div>
     )
 }

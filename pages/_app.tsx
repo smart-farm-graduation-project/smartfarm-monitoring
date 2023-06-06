@@ -8,7 +8,6 @@ const App = ({ Component, pageProps }: AppProps) => {
     <RecoilRoot>
         <Header />
         <Component {...pageProps} />
-        <Footer/>
     </RecoilRoot>
   );
 };
