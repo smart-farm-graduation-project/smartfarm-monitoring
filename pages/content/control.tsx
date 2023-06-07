@@ -2,7 +2,7 @@ import { controlFarm } from "@/axiosAPI/axiosFunction";
 import { socketConnect } from "@/axiosAPI/webSocket"
 import { withAuth } from "@/components/hocs/withAuth";
 import { controlMsg, farm } from "@/interfaces/interface";
-import { farmList } from "@/store/farmData";
+import { farmList } from "@/store/farmList";
 import { inputId } from "@/store/userId";
 import { ChangeEvent, useEffect, useState } from "react"
 import { useRecoilValue } from "recoil";

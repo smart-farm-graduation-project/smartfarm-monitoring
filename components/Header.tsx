@@ -13,7 +13,7 @@ const Header = () => {
         } else {
             setIsLogin(true);
         }
-    }, []);
+    }, [currentId]);
 
     const sign = () => {
         if (isLogin) {

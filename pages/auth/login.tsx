@@ -4,13 +4,14 @@ import { getFarmList, loginCheck } from "@/axiosAPI/axiosFunction";
 import { useRouter } from "next/router";
 import {useRecoilState} from "recoil"
 import { inputId } from "@/store/userId";
-import { farmList } from "@/store/farmData";
+import { farmList } from "@/store/farmList";
+import { farm } from "@/interfaces/interface";
 const Login = () => {
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
     const router = useRouter();
     const [currentId, setCurrentId] = useRecoilState<string>(inputId);
-    const [farmNum, setFarmNum] = useRecoilState<Array<string>>(farmList);
+    const [farmNum, setFarmNum] = useRecoilState<farm[]>(farmList);
     const check = async () => {
         const loginInfo = {
             id: id,
@@ -28,6 +29,7 @@ const Login = () => {
           router.push("/content/dashboard");
         }
         else {
+          alert("아이디 혹은 비밀번호가 다릅니다")
             console.log("login fail");
         }
     }
@@ -46,7 +48,7 @@ const Login = () => {
         //         <button onClick={goRegist} >register </button>
         //     </div>
         // </div>
-        <div className="h-full flex justify-center">
+        <div className="h-full flex justify-center mt-52">
             <div className="block row-start-2 row-span2"></div>
         <div className="w-full max-w-xs">
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -64,9 +66,12 @@ const Login = () => {
             <p className="text-red-500 text-xs italic">Please choose a password.</p>
           </div>
           <div className="flex items-center justify-between">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={goRegist}>
-              regist
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={check}>
+              Login
             </button>
+            <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/auth/register">
+              regist
+            </a>
             <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/auth/setPw">
               Forgot Password?
             </a>
